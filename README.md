@@ -67,6 +67,10 @@ JobTech API ──► Python / pandas ──► CSV staging files ──► SQL 
   - Types are converted with `TRY_CONVERT`.
   - Dimension matching is NULL-safe (`EXISTS … INTERSECT`).
   - The fact load runs in a transaction that rolls back if a job could match more than one dimension row, or if fact and staging row counts differ.
+**Data model in Power BI:** FactJobAds sits at the centre with one-to-many, single-direction relationships to the four dimensions. FactJobRequirements is kept at its own grain and linked on JobAdKey, so counts of ads and counts of requirements never inflate each other. Surrogate keys are hidden from report view, DimDate is marked as the date table, and calendar number columns are set to *Don't summarize*.
+
+![Power BI data model](powerbi/data-model.png)
+
 - [`sql/02_validation_checks.sql`](sql/02_validation_checks.sql) checks row counts per table and missing foreign keys, and runs a few sanity queries (top vacancies, ads requiring Swedish).
 
 ## Stage 3: SSIS ETL package (`ssis/`)
@@ -123,7 +127,8 @@ Stockholm Share of Ads =
 │   └── SwedishLabourMarket/         Stage 3 – SSIS project (Package.dtsx …)
 └── powerbi/
     ├── Swedish_Labour_Market.pbix   Stage 4 – dashboard
-    └── dashboard.jpg
+    ├── dashboard.jpg
+    └── data-model.png
 ```
 
 ## How to run
