@@ -111,6 +111,13 @@ Stockholm Share of Ads =
         CALCULATE ( [Total Job Ads], ALL ( DimLocation ) )
     )
 ```
+**Model metadata:** the semantic model documents itself, so anyone opening it can see what each number means without asking.
+
+- **Descriptions** on every measure and table, shown as a tooltip in the Data pane (for example, the Stockholm share notes that its denominator ignores location filters, so it is always the national total).
+- **Display folders** group the measures into *Volume*, *Requirements* and *Shares*.
+- **Format strings** set once in the model: counts as `#,0`, percentages as `0.0%`, so every visual shows them the same way.
+- **Data categories** on the location columns (City, Country/Region, Place for municipality, County for län), so map visuals geocode them correctly.
+
 
 ## Repository structure
 
